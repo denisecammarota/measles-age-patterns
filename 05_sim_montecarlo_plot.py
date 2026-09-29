@@ -29,7 +29,8 @@ fig, axes = plt.subplots(
     nrows=5,
     ncols=2,
     figsize=(15, 20),
-    sharex = True
+    sharex = True,
+    sharey=True
 )
 
 axes = axes.flatten()
@@ -44,7 +45,7 @@ for cod_mun in cod_muns:
 
     
     age_groups = [
-        "<1", "1–4", "5–9", "10–14", "15–20",
+        "<1", "1–4", "5–9", "10–14", "15–19",
         "20–29", "30–39", "40–49", "50–59", "60+"
     ]
     means = 1 - sus_age
@@ -74,26 +75,25 @@ for cod_mun in cod_muns:
        capsize=4
        )
 
-    ax.set_title(names_muns[i], fontsize=12)
+    ax.set_title(names_muns[i], fontsize=18)
     ax.set_xticks(np.arange(10))
-    ax.set_xticklabels(age_groups, rotation=45, ha="right")
+    ax.set_xticklabels(age_groups, rotation=45, ha="right", fontsize=14)
+    ax.tick_params(axis='y', labelsize=14)
+    ax.set_ylim(0, 0.6)
     ax.grid(axis='y', linestyle='--', alpha=0.3)
-
-    if i % 2 == 0:
-        ax.set_ylabel("Susceptibility")
-    else:
-        ax.set_ylabel("")
 
     if i < 8:
        ax.set_xlabel("")
     else:
-       ax.set_xlabel("Age group")
+       ax.set_xlabel("Age group", fontsize=16)
     
     
     i = i + 1
 
+fig.text(0.02, 0.5, 'Susceptibility', rotation=90,
+         va='center', ha='center', fontsize=22)
 
-plt.tight_layout()
+plt.tight_layout(rect=[0.03, 0.03, 1, 1])
 plt.savefig('figs/sus_comparison.pdf')
 plt.savefig('figs/sus_comparison.jpg')
 plt.show()

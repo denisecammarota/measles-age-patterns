@@ -30,13 +30,13 @@ fig, axes = plt.subplots(
     nrows=5,
     ncols=2,
     figsize=(15, 20),
-    sharex = True
+    sharex=True
 )
 
 axes = axes.flatten()
 
 age_groups = [
-     "<1", "1–4", "5–9", "10–14", "15–20",
+     "<1", "1–4", "5–9", "10–14", "15–19",
      "20–29", "30–39", "40–49", "50–59", "60+"
 ]
 
@@ -103,41 +103,25 @@ for cod_mun in cod_muns:
     label="Montecarlo"
     )
     
-    ax.set_title(names_muns[i], fontsize=16)
+    ax.set_title(names_muns[i], fontsize=18)
     ax.set_xticks(np.arange(10))
-    ax.set_xticklabels(age_groups, rotation=45, ha="right")
+    ax.set_xticklabels(age_groups, rotation=45, ha="right", fontsize=14)
+    ax.tick_params(axis='y', labelsize=14)
     ax.grid(axis='y', linestyle='--', alpha=0.3)
-    
-    if i % 2 == 0:
-        ax.set_ylabel("Number of cases", fontsize=14)
-    else:
-        ax.set_ylabel("")
-
+        
     if i < 8:
-       ax.set_xlabel("")
+        ax.set_xlabel("")
     else:
-       ax.set_xlabel("Age group", fontsize=14)
-
-    ax.plot( list_cases[i], 'o', color='k', markersize=10, zorder=5, label = 'Real' )
-    
+        ax.set_xlabel("Age group", fontsize=16)
+        
+    ax.plot(list_cases[i], 'o', color='k', markersize=10, zorder=5)
     
     i = i + 1
     
+fig.text(0.02, 0.5, 'Number of cases', rotation=90,
+         va='center', ha='center', fontsize=22)
     
-#handles = [
-#    Line2D([0], [0], color="C0", lw=2, label="Montecarlo"),
-#    Line2D([0], [0], marker="o", color="k", linestyle="none", markersize=8, label="Real"),
-#]
-
-#fig.legend(
-#    handles=handles,
-#    loc="lower center",
-#    ncol=3,
-#    fontsize=18,
-#    frameon=False,
-#)
-    
-plt.tight_layout(rect=[0, 0.05, 1, 1])
+plt.tight_layout(rect=[0.03, 0.03, 1, 1])
 plt.savefig('figs/compares_inc/compare_cases_inc.pdf')
 plt.savefig('figs/compares_inc/compare_cases_inc.jpg')   
 plt.show()
